@@ -1,30 +1,31 @@
 package tobyspring.splearn.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.util.Assert.state;
 
+@Entity
 @Getter
-@EqualsAndHashCode(of = {"email", "nickname"})
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Embedded
     private Email email;
 
     private String nickname;
 
     private String passwordHash;
 
+    @Enumerated
     private MemberStatus status;
 
-    // Constructor
-
-    private Member() {
-    }
-
-    public static Member create(MemberCreateRequest createRequest, PasswordEncoder passwordEncoder) {
+//  factory
+    public static Member register(MemberRegisterRequest createRequest, PasswordEncoder passwordEncoder) {
         Member member = new Member();
 
         member.email = new Email(createRequest.email());
