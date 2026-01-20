@@ -1,16 +1,16 @@
-package tobyspring.splearn.domain.shared;
+package tobyspring.splearn.domain;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EmailTest {
+
     @Test
     void equality() {
-        var email1 = new Email("toby@splearn.app");
-        var email2 = new Email("toby@splearn.app");
+        Email email1 = new Email("myEmail@splearn.com");
+        Email email2 = new Email("myEmail@splearn.com");
 
         assertThat(email1).isEqualTo(email2);
     }
-
 }
