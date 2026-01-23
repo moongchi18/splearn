@@ -2,6 +2,9 @@ package tobyspring.splearn.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tobyspring.splearn.domain.member.Member;
+import tobyspring.splearn.domain.member.MemberStatus;
+import tobyspring.splearn.domain.member.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -65,8 +68,8 @@ class MemberTest {
     
     @Test
     void varifyPassword() {
-        assertThat(member.varifyPassword("mySecret", passwordEncoder)).isTrue();
-        assertThat(member.varifyPassword("secret", passwordEncoder)).isFalse();
+        assertThat(member.verifyPassword("very_secret", passwordEncoder)).isTrue();
+        assertThat(member.verifyPassword("ySecret", passwordEncoder)).isFalse();
     }
 
     @Test
@@ -81,7 +84,7 @@ class MemberTest {
     @Test
     void changePassword() {
         member.changePassword("verySecret", passwordEncoder);
-        assertThat(member.varifyPassword("verySecret", passwordEncoder)).isTrue();
+        assertThat(member.verifyPassword("verySecret", passwordEncoder)).isTrue();
     }
 
     @Test

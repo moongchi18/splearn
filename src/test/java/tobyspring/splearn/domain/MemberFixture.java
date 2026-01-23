@@ -1,6 +1,7 @@
 package tobyspring.splearn.domain;
 
-import org.junit.jupiter.api.BeforeEach;
+import tobyspring.splearn.domain.member.MemberRegisterRequest;
+import tobyspring.splearn.domain.member.PasswordEncoder;
 
 public class MemberFixture {
     public static MemberRegisterRequest createMemberRegisterRequest() {
@@ -8,7 +9,7 @@ public class MemberFixture {
     }
 
     public static MemberRegisterRequest createMemberRegisterRequest(String email) {
-        return new MemberRegisterRequest(email, "moongchi", "mySecret");
+        return new MemberRegisterRequest(email, "moongchi", "very_secret");
     }
 
     public static PasswordEncoder createPasswordEncoder() {
