@@ -1,7 +1,7 @@
-package tobyspring.splearn.application.required;
+package tobyspring.splearn.application.member.required;
 
 import org.springframework.stereotype.Component;
-import tobyspring.splearn.domain.member.Email;
+import tobyspring.splearn.domain.shared.Email;
 
 /**
  * 이메일을 발송한다.

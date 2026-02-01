@@ -4,8 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tobyspring.splearn.domain.member.Member;
 import tobyspring.splearn.domain.member.MemberStatus;
+import tobyspring.splearn.domain.member.MemberUpdateRequest;
 import tobyspring.splearn.domain.member.PasswordEncoder;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tobyspring.splearn.domain.MemberFixture.createMemberRegisterRequest;
@@ -27,6 +29,7 @@ class MemberTest {
         assertThat(member.getStatus())
                 .isNotNull()
                 .isEqualTo(MemberStatus.PENDING);
+        assertThat(member.getDetail().getRegisteredAt()).isNotNull();
     }
 
     @Test
@@ -34,6 +37,7 @@ class MemberTest {
         member.activate();
 
         assertThat(member.getStatus()).isEqualTo(MemberStatus.ACTIVE);
+        assertThat(member.getDetail().getActivatedAt()).isNotNull();
     }
 
     @Test
@@ -52,6 +56,7 @@ class MemberTest {
         member.deactivate();
 
         assertThat(member.getStatus()).isEqualTo(MemberStatus.DEACTIVATED);
+        assertThat(member.getDetail().getDeactivatedAt()).isNotNull();
     }
 
     @Test
@@ -103,5 +108,29 @@ class MemberTest {
         }).isInstanceOf(IllegalArgumentException.class);
 
 //        Member.create(new MemberCreateRequest("invalid-email", "moongchi", "mySecret"), passwordEncoder);
+    }
+
+    @Test
+    void updateInfo() {
+        member.activate();
+
+        MemberUpdateRequest updateInfo = new MemberUpdateRequest("Lee", "toby100", "자기소개");
+        member.updateInfo(updateInfo);
+
+        assertThat(member.getNickname()).isEqualTo(updateInfo.nickname());
+        assertThat(member.getDetail().getProfile().address()).isEqualTo(updateInfo.profileAddress());
+        assertThat(member.getDetail().getIntroduction()).isEqualTo(updateInfo.introduction());
+
+    }
+
+    @Test
+    void updateInfoFail() {
+        assertThatThrownBy(
+            () -> {
+                MemberUpdateRequest updateInfo = new MemberUpdateRequest("Lee", "toby100", "자기소개");
+                member.updateInfo(updateInfo);
+            }
+        ).isInstanceOf(IllegalStateException.class);
+
     }
 }

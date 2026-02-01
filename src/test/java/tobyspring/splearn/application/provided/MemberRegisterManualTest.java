@@ -6,7 +6,7 @@
 //import tobyspring.splearn.application.required.EmailSender;
 //import tobyspring.splearn.application.required.MemberRepository;
 //import tobyspring.splearn.domain.MemberFixture;
-//import tobyspring.splearn.domain.member.Email;
+//import tobyspring.splearn.domain.shared.Email;
 //import tobyspring.splearn.domain.member.Member;
 //import tobyspring.splearn.domain.member.MemberStatus;
 //
